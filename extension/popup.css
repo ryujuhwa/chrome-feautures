@@ -1,0 +1,9 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+body { width: 300px; margin: 0; padding: 22px; }
+h1 { font-size: 20px; margin: 0 0 16px; }
+p { font-size: 14px; line-height: 1.6; }
+#status { font-weight: 700; }
+button { width: 100%; padding: 12px; border: 0; border-radius: 8px; background: #2563eb; color: white; font: inherit; cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+button:focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+.note { font-size: 12px; opacity: .8; }

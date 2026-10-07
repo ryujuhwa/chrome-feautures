@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "자동 새 창 차단",
+  "version": "1.0.0",
+  "description": "크롬의 팝업 차단을 켜서 사이트가 자동으로 여는 새 창을 막습니다.",
+  "permissions": [
+    "contentSettings",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "자동 새 창 차단",
+    "default_popup": "popup.html"
+  }
+}
