@@ -11,13 +11,14 @@ function setup(initial = true) {
   const calls = [];
   const button = {addEventListener: (_, callback) => {click = callback;}};
   const status = {};
+  const strictControl = {addEventListener: () => {}};
   const api = {
     get: async () => ({setting: 'block'}),
     set: async options => {calls.push(['set', options]);},
     clear: async options => {calls.push(['clear', options]);}
   };
   vm.runInNewContext(source, {
-    document: {querySelector: selector => selector === '#toggle' ? button : status},
+    document: {querySelector: selector => selector === '#status' ? status : selector === '#strict' ? strictControl : button},
     chrome: {contentSettings: {popups: api}, storage: {local: {
       get: async () => ({enabled}), set: async state => {enabled = state.enabled;}
     }}}
@@ -49,7 +50,8 @@ test('installation enables blocking and updates preserve opt-out', async () => {
   const background = fs.readFileSync('extension/background.js', 'utf8');
   for (const existing of [undefined, false]) {
     let callback, stored, sets = 0;
-    vm.runInNewContext(background, {chrome: {
+    vm.runInNewContext(background, {console, chrome: {
+      tabs: {onCreated: {addListener: () => {}}},
       runtime: {onInstalled: {addListener: fn => {callback = fn;}}},
       storage: {local: {get: async () => ({enabled: existing}), set: async state => {stored = state.enabled;}}},
       contentSettings: {popups: {set: async () => {sets++;}}}
