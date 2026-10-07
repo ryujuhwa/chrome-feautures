@@ -60,7 +60,7 @@ with sync_playwright() as p:
         print('PASS: synthetic new-tab anchor blocked')
         page.evaluate("""() => {
           window.fixtureSettings={enabled:true,overlays:true};
-          window.chrome={storage:{local:{get:async()=>window.fixtureSettings},
+          window.chrome={runtime:{onMessage:{addListener:fn=>{window.fixtureMessage=fn;}}},storage:{local:{get:async()=>window.fixtureSettings, set:async values=>{Object.assign(window.fixtureSettings,values);window.fixtureChanged({},'local');}, remove:async key=>{delete window.fixtureSettings[key];window.fixtureChanged({},'local');}},
             onChanged:{addListener:fn=>{window.fixtureChanged=fn;}}}};
           document.querySelector('#ad-overlay').style.removeProperty('display');
         }""")

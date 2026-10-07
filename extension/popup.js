@@ -45,3 +45,28 @@ overlayControl.addEventListener('change', async () => {
   }
 });
 refresh().catch(showError);
+
+async function sendToPage(type) {
+  const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+  if (!tab?.id) throw new Error('현재 웹페이지를 찾지 못했습니다.');
+  let result;
+  try {
+    result = await chrome.tabs.sendMessage(tab.id, {type}, {frameId: 0});
+  } catch {
+    throw new Error('웹사이트를 새로고침한 뒤 다시 시도하세요. 크롬 설정 페이지에서는 사용할 수 없습니다.');
+  }
+  if (result?.error) throw new Error(result.error);
+}
+document.querySelector('#pick-layer').addEventListener('click', async () => {
+  try {
+    if (!enabled || !overlayControl.checked) throw new Error('먼저 차단과 광고 레이어 숨기기를 켜 주세요.');
+    await sendToPage('pick-layer');
+    window.close();
+  } catch (error) { showError(error); }
+});
+document.querySelector('#reset-layers').addEventListener('click', async () => {
+  try {
+    await sendToPage('reset-layers');
+    status.textContent = '이 사이트에서 직접 선택한 차단 규칙을 삭제했습니다.';
+  } catch (error) { showError(error); }
+});

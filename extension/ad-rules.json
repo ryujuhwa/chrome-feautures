@@ -20,5 +20,31 @@
         "sub_frame"
       ]
     }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "initiatorDomains": [
+        "hitomi.la"
+      ],
+      "requestDomains": [
+        "displayvertising.com",
+        "capndr.com",
+        "wpushsdk.com",
+        "cabnnr.com",
+        "wpadmngr.com",
+        "rtbbtr.com",
+        "darnobedienceupscale.com",
+        "adsco.re"
+      ],
+      "resourceTypes": [
+        "script",
+        "sub_frame"
+      ]
+    }
   }
 ]

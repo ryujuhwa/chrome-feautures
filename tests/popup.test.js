@@ -18,7 +18,7 @@ function setup(initial = true) {
     clear: async options => {calls.push(['clear', options]);}
   };
   vm.runInNewContext(source, {
-    document: {querySelector: selector => selector === '#status' ? status : selector === '#overlays' ? strictControl : button},
+    document: {querySelector: selector => selector === '#status' ? status : selector === '#toggle' ? button : strictControl},
     chrome: {declarativeNetRequest: {updateEnabledRulesets: async () => {}}, contentSettings: {popups: api}, storage: {local: {
       get: async () => ({enabled}), set: async state => {enabled = state.enabled;}
     }}}
