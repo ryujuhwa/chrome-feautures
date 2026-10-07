@@ -1,12 +1,13 @@
-자동 새 창·광고 레이어 차단 — 그림 설명서 (v1.3.0)
+Popup & Ad Overlay Blocker — Illustrated Guide (v1.3.0)
 
-1. popup-blocker-guide.pdf: 20쪽 PDF입니다. 더블클릭해 Edge나 크롬에서 읽고 인쇄할 수 있습니다.
-2. popup-blocker-guide.html: 더블클릭해 크롬이나 Edge에서 읽습니다. 이전/다음 버튼 또는 방향키로 이동합니다.
-   “모두 보기”를 누르면 전체 페이지가 펼쳐집니다. 인터넷 연결이나 추가 설치가 필요 없습니다.
-3. FONT-LICENSE.txt: 자료에 포함된 한글 글꼴의 이용 허가 안내입니다.
+1. popup-blocker-guide.pdf: A 20-page PDF. Open it with Edge, Chrome or a PDF reader to read, share or print it.
+2. popup-blocker-guide.html: Double-click to open in Chrome or Edge. Use Previous/Next or the arrow keys to navigate.
+   Show all expands every slide. No Internet connection or additional installation is required.
+3. FONT-LICENSE.txt: License for the font embedded in the guide.
 
-이 자료는 확장 프로그램 자체가 아니라 동작을 설명하는 자료입니다.
-실제 화면을 복사한 것이 아니라 설명용 그림을 사용합니다.
-사용자가 제공한 페이지 내용이나 광고 추적 값은 포함하지 않습니다.
+This bundle explains the extension; it is not the extension installer.
+The diagrams are illustrative, not screenshots of the actual interface.
+The extension interface remains Korean; labels in this guide are translated descriptions.
+User-provided page content and advertising tracking values are not included.
 
-1~12쪽은 그림 중심의 사용 설명, 13~20쪽은 실제 코드에 대응하는 기술 부록입니다.
+Pages 1–12 provide the visual introduction. Pages 13–20 explain the current code and its technical structure.

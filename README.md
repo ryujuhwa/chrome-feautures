@@ -1,71 +1,83 @@
-# 자동 새 창·광고 레이어 차단 v1.3.0
+# Popup & Ad Overlay Blocker v1.3.0
 
-직접 선택한 링크를 보존하면서, 의도하지 않은 스크립트 팝업과 식별 가능한 광고 레이어를 차단하는 Chrome Manifest V3 확장 프로그램입니다. v1.1.0의 모든 사이트 생성 탭을 닫는 강력 차단은 제거했습니다. 방문 기록을 수집하거나 외부 서버로 전송하지 않습니다.
+A Chrome Manifest V3 extension that reduces unwanted scripted popups and identifiable advertising overlays while preserving intentional links. The blanket tab-closing mode from v1.1.0 has been removed. The extension does not collect browsing history or send it to an external collection server.
 
-## Windows 설치 및 업데이트
+## Install or update on Windows
 
-1. [설치용 ZIP 다운로드](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/chrome-popup-blocker.zip)를 누릅니다.
-2. 다운로드 폴더에서 ZIP을 우클릭 → **모두 추출**로 새 폴더에 압축을 풉니다.
-3. 크롬에서 `chrome://extensions`를 엽니다. 기존 버전을 설치했다면 제거합니다.
-4. **개발자 모드 → 압축해제된 확장 프로그램 로드**에서 추출된 `chrome-popup-blocker/extension` 폴더를 선택합니다. `manifest.json`이 들어 있는 폴더여야 합니다.
-5. 확장 프로그램 화면에서 **1.3.0**을 확인하고, 열어 둔 웹사이트를 새로고침합니다. 크롬 재시작은 필요 없습니다.
+1. [Download the extension ZIP](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/chrome-popup-blocker.zip).
+2. In Downloads, right-click the ZIP and select **Extract All**. Extract into a new folder.
+3. Open `chrome://extensions`. Remove the previous version if it is installed.
+4. Enable **Developer mode**, select **Load unpacked**, and choose the extracted `chrome-popup-blocker/extension` folder. It must contain `manifest.json`.
+5. Confirm version **1.3.0** and refresh any website tabs that were already open. Chrome does not need to restart.
 
-웹사이트에서 실행할 권한을 허용해야 합니다. 업데이트에서 사이트 접근 및 광고 요청 차단 권한이 추가되었습니다. 시크릿 모드는 기본으로 동작하지 않습니다.
+Allow the extension to run on the websites you want to protect. Recent updates added website access and request-blocking permissions. Incognito browsing is not covered by default.
 
-## 동작
+The extension interface remains in Korean. English menu names in this documentation and its diagrams describe the corresponding actions.
 
-- 직접 누른 일반 링크, Ctrl+클릭, 가운데 클릭, 크롬 메뉴의 새 창은 일괄 닫지 않습니다.
-- 일반 영역 클릭에 끼어드는 `window.open`, 사용자 동작 없이 실행되는 팝업, 의도와 다른 주소로 여는 링크 스크립트를 차단합니다.
-- 버튼을 직접 누른 직후의 로그인·결제 팝업은 보존합니다. 알려진 광고 서버로 여는 팝업은 차단합니다.
-- 알려진 광고 서버(doubleclick, googlesyndication, popads, popcash, adsterra, exoclick, juicyads)의 스크립트와 광고 프레임을 네트워크에서 차단합니다.
-- 사용자가 제공한 HTML에서 확인한 displayvertising.com, capndr.com, wpushsdk.com, cabnnr.com, wpadmngr.com, rtbbtr.com, darnobedienceupscale.com, adsco.re의 스크립트·프레임은 hitomi.la에서만 추가 차단합니다. 사이트 본문용 CDN은 이 규칙에서 차단하지 않습니다. 일반 페이지 이동 요청은 해당 규칙으로 차단하지 않습니다.
-- 광고 레이어 숨기기는 광고 표시(`ad-overlay`, `ads-modal`, `data-ad-overlay` 등) 또는 알려진 광고 프레임으로 확인되는 큰 덮개를 숨깁니다. 동적으로 추가되는 요소도 검사합니다. 일반 로그인 창·메뉴·쿠키 안내를 임의로 삭제하지 않습니다.
-- hitomi.la의 광고 SDK 식별자 `.gfpl-overlay`, `.__bai-container`, `.__inst-container`는 작은 모서리 광고도 숨깁니다. 무작위 이름의 덮개는 **광고 레이어 직접 선택**으로 지정할 수 있습니다.
-- 확장 프로그램 팝업에서 전체 차단 또는 광고 레이어 숨기기를 끌 수 있습니다. 숨겨 둔 레이어는 설정을 끄면 복원됩니다. 전체 차단을 끄면 광고 네트워크 차단도 해제하고, 기본 팝업 설정은 기존 크롬 설정으로 돌아갑니다.
+## Behavior
 
-## 한계
+- Ordinary links, Ctrl-click, middle-click and windows opened through Chrome's menu are not indiscriminately closed.
+- Scripted `window.open` requests without a qualifying user action, popups attached to clicks on noninteractive areas, and link scripts opening an unrelated address are blocking candidates.
+- Button-driven sign-in and payment popups are normally preserved immediately after a real click. Popups to known advertising hosts are rejected by the page guard.
+- Chrome's request rules block scripts and embedded frames from the general advertising host list: doubleclick.net, googlesyndication.com, popads.net, popcash.net, adsterra.com, exoclick.com and juicyads.com.
+- Additional script/frame rules for displayvertising.com, capndr.com, wpushsdk.com, cabnnr.com, wpadmngr.com, rtbbtr.com, darnobedienceupscale.com and adsco.re apply to requests initiated by hitomi.la. These hosts were identified in user-provided HTML. The site's content CDN and ordinary page-navigation requests are not targeted by those rules.
+- Overlay hiding targets large positioned elements identified by advertising markers such as `ad-overlay`, `ads-modal` or `data-ad-overlay`, or known advertising iframe URLs. Dynamically added elements are scanned too. Ordinary dialogs and menus are not blanket hiding targets.
+- On hitomi.la, confirmed ad SDK selectors `.gfpl-overlay`, `.__bai-container` and `.__inst-container` also hide smaller corner ads. Unrecognized overlays can be added with **Select an ad overlay**.
+- Overall blocking and overlay hiding can be toggled separately. Disabling overlay hiding restores the extension's saved display styles. Disabling overall blocking also disables the request rules and restores Chrome's previous native popup setting, which may still block popups.
 
-사용자의 의도를 모든 스크립트에서 완벽하게 판별할 수는 없습니다. 버튼에 묶인 광고, 새로운 광고 도메인, 광고 표시가 없는 레이어, 사이트 자체 도메인에서 제공하는 광고는 남을 수 있습니다. 일부 사용자 정의 컨트롤의 정상 팝업은 차단될 수 있어 필요할 때 차단을 잠시 끄세요. 스크립트 가로채기는 보안 경계가 아니며 사이트가 우회할 수 있습니다. 이미 열린 창과 외부 프로그램이 여는 창은 닫지 않습니다.
+## Limitations and validation status
 
-사용자가 제공한 HTML을 바탕으로 hitomi.la 전용 규칙을 추가하고, 실제 콘텐츠 없이 해당 광고 구조를 재현한 Chromium 테스트를 통과했습니다. 사용자 HTML 및 광고 추적 값은 저장소나 ZIP에 포함하지 않습니다. `hitomi.la`는 사용자 제보 대상이지만 클라우드 네트워크가 접속을 403으로 거부해 실제 사이트에서의 광고 차단 성공은 확인하지 못했습니다. 이 버전은 범용 동작 및 알려진 광고 서버에 대한 규칙을 적용하며 특정 사이트의 모든 광고를 차단한다고 보장하지 않습니다.
+User intent cannot be inferred perfectly. Ads attached to buttons, new advertising hosts, unmarked overlays and same-site advertising can escape detection. A legitimate popup from a custom control can also be blocked; temporarily disable blocking if needed. The page guard is not a security boundary and sites can bypass it. Existing windows and windows opened by external programs are not closed.
 
-## 개발 및 검증
+The hitomi.la-specific rules were derived from user-provided HTML. Chromium fixture tests reproduced the technical advertising structures without including the site's actual content. The supplied HTML and advertising tracking values are not included in the repository or download bundles.
 
-의존성 설치나 빌드가 필요하지 않습니다. Node.js 24로 실행합니다.
+The cloud proxy denied live hitomi.la access with HTTP 403, so live-site success remains unverified. Cloud Chromium also denies unpacked extension loading through administrator policy. Unit tests and injected-script browser tests passed, but installation and request-rule integration have not been validated in that environment. This extension does not promise to remove every advertisement or certify a site's safety.
+
+## Development and checks
+
+The extension needs no dependency installation or build step. Run the unit tests using Node.js 24:
 
 ```sh
 node --test tests/*.test.js
 ```
 
-Python Playwright와 `/usr/lib/chromium/chromium`이 있는 환경에서 실제 DOM 및 팝업 동작을 검사합니다.
+With Python Playwright and `/usr/lib/chromium/chromium` available, run the browser behavior checks:
 
 ```sh
 python tests/browser_behavior.py
+python tests/layers_behavior.py
 ```
 
-이 검사는 배포하는 스크립트를 실제 Chromium 페이지에 주입하며 저장소 API를 테스트용으로 제공합니다. 자동 팝업, 빈 영역 클릭 팝업, 의도한 새 탭 링크·로그인 버튼, 합성 링크 클릭, 초기·동적 광고 레이어, 일반 대화상자 유지, 설정 해제를 확인합니다. 확장 프로그램 설치 및 네트워크 규칙 적용 자체를 검증하는 검사는 아닙니다.
+These tests run the shipped page scripts in real Chromium fixture pages with a storage API fixture. They exercise automatic and unrelated-click popups, intentional links and Ctrl-click, sign-in buttons, synthetic anchor clicks, initial and dynamic overlays, normal dialog preservation, manual selection, overlay recurrence, rule reset and disabling behavior. They do not validate unpacked extension installation or Chrome's network-rule enforcement.
 
-`python tests/browser_smoke.py`는 실제 확장 프로그램을 로드하는 검사입니다. 현재 클라우드 Chromium 관리자 정책이 압축 해제 확장 프로그램 로딩을 금지하여 이 검사는 막혀 있습니다. 정책이 허용된 개발용 브라우저에서 별도로 검증해야 합니다.
+`python tests/browser_smoke.py` attempts to load the actual unpacked extension. The current cloud administrator policy blocks that operation; run it separately in a development browser where unpacked extensions are allowed.
 
-## 자동으로 숨겨지지 않는 광고 레이어
+## Manually select an overlay
 
-1. 확장 프로그램에서 **차단 켜짐**과 **광고 레이어 숨기기**를 확인합니다.
-2. 광고가 덮인 페이지에서 도구 모음의 확장 프로그램을 열고 **광고 레이어 직접 선택**을 누릅니다.
-3. 팝업이 닫힌 뒤 광고 위로 마우스를 옮깁니다. 빨간 테두리가 숨길 요소를 표시합니다. 클릭하면 해당 요소를 숨깁니다. 취소는 Esc입니다.
-4. 선택한 규칙은 현재 사이트의 주소(origin)에만 저장되어 이후 등장하는 같은 덮개를 자동으로 숨깁니다. 해당 요소의 식별자나 구조가 바뀌면 다시 선택해야 합니다.
-5. 잘못 선택했다면 **이 사이트의 선택 차단 초기화**를 누릅니다. 직접 선택한 규칙만 삭제하며 기본 광고 규칙은 유지합니다.
+1. Enable overall blocking and **Hide ad overlays** in the extension menu.
+2. While the unwanted overlay is visible, open the extension and choose **Select an ad overlay**.
+3. Move the pointer over the ad. A red outline shows the element to hide. Click to save and hide it. Press Esc to cancel.
+4. The selector is saved for the current origin (scheme, host and port) and reapplied to matching positioned overlays. If the identifier or structure changes, select it again.
+5. If you selected the wrong element, choose **Reset selected rules for this site**. This removes your custom selections; built-in ad rules remain active.
 
-선택 기능은 일반 페이지 요소를 마음대로 삭제하지 않고, 화면 위에 배치된 fixed/absolute 덮개를 대상으로 합니다. 선택 중에는 투명 선택 화면이 클릭을 받아 광고 안의 iframe도 선택할 수 있습니다. 사이트별 규칙은 로컬 크롬 프로필에만 저장됩니다. 제거 후 재설치하면 이 규칙도 사라집니다.
+The picker targets fixed/absolute overlays, not arbitrary page content. A transparent selection layer captures clicks so advertising iframes can also be selected. Rules are stored only in the local Chrome profile. Removing and reinstalling the extension clears them.
 
-추가 검증: `python tests/layers_behavior.py`는 광고 SDK 덮개, 작은 모서리 광고, 직접 선택 및 반복 생성, 규칙 초기화, 정상 콘텐츠 보존을 실제 Chromium의 로컬 테스트 페이지에서 확인합니다. 네트워크 차단 규칙 자체는 이 테스트의 검증 범위가 아닙니다.
+## Illustrated guide
 
-## 그림으로 읽는 동작 설명서
+A 20-page English guide: 12 introductory pages and an 8-page technical appendix. Diagrams explain request filtering, popup decisions, overlay hiding, manual selection, settings and limitations.
 
-개발 지식이 없는 사용자를 위한 20쪽 그림 자료 (기존 설명 12쪽 + 기술 부록 8쪽)입니다. 광고 요청 차단, 정상 새 창 허용, 광고 덮개 숨기기, 직접 선택, 설정과 한계를 설명합니다.
+- [Download the PDF](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.pdf)
+- [Download the PDF and offline HTML bundle](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.zip)
 
-- [PDF 다운로드](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.pdf)
-- [PDF + 오프라인 HTML 자료 ZIP 다운로드](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.zip)
+Extract the guide ZIP and double-click `popup-blocker-guide.html` to read it without an Internet connection. The PDF uses A4 landscape pages.
 
-ZIP을 모두 추출한 후 `popup-blocker-guide.html`을 더블클릭하면 인터넷 없이도 읽을 수 있습니다. PDF는 A4 가로로 인쇄할 수 있습니다.
+Pages 13–20 cover file roles, MAIN/ISOLATED execution worlds, settings events, `window.open` decisions, request rules, `MutationObserver`, hiding/restoration, selector storage, permissions and verification boundaries.
 
-기술 부록은 파일별 실행 위치, MAIN/ISOLATED 실행 공간, 설정 이벤트, window.open 판정, 네트워크 규칙, MutationObserver, 레이어 숨김·복원, 선택 규칙 저장과 검증 범위를 설명합니다. 자료 재생성은 `python docs/build_guide.py`와 `python docs/render_guide.py`로 수행합니다 (fontTools, Python Playwright 및 시스템 Noto CJK 글꼴 필요).
+To regenerate the guide:
+
+```sh
+python docs/build_guide.py
+python docs/render_guide.py
+```
+
+Generation requires fontTools, Python Playwright, Chromium at the configured path and the system Noto CJK font. PyMuPDF is optional for PDF text/page checks. The bundled subset font license is in `docs/FONT-LICENSE.txt`.
