@@ -37,7 +37,8 @@ with sync_playwright() as p:
         with context.expect_page() as event:
             page.locator('#same').click(modifiers=['Control'])
         ctrl = event.value
-        ctrl.wait_for_load_state()
+        ctrl.bring_to_front()
+        ctrl.wait_for_url('**/ctrl', timeout=5000)
         assert ctrl.url.endswith('/ctrl')
         ctrl.close()
         page.locator('#hijack').click()
@@ -48,7 +49,7 @@ with sync_playwright() as p:
         login.wait_for_load_state()
         assert login.url.endswith('/login')
         login.close()
-        print('PASS: intentional native new-tab link and login button preserved')
+        print('PASS: intentional new-tab link, Ctrl-click and login button preserved; link ad side effect blocked')
         page.wait_for_timeout(1100)
         assert page.evaluate("""() => {
           const a=document.createElement('a');a.href='/synthetic';a.target='_blank';
