@@ -61,9 +61,11 @@ python tests/browser_behavior.py
 
 ## 그림으로 읽는 동작 설명서
 
-개발 지식이 없는 사용자를 위한 12쪽 그림 자료입니다. 광고 요청 차단, 정상 새 창 허용, 광고 덮개 숨기기, 직접 선택, 설정과 한계를 설명합니다.
+개발 지식이 없는 사용자를 위한 20쪽 그림 자료 (기존 설명 12쪽 + 기술 부록 8쪽)입니다. 광고 요청 차단, 정상 새 창 허용, 광고 덮개 숨기기, 직접 선택, 설정과 한계를 설명합니다.
 
 - [PDF 다운로드](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.pdf)
 - [PDF + 오프라인 HTML 자료 ZIP 다운로드](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.zip)
 
 ZIP을 모두 추출한 후 `popup-blocker-guide.html`을 더블클릭하면 인터넷 없이도 읽을 수 있습니다. PDF는 A4 가로로 인쇄할 수 있습니다.
+
+기술 부록은 파일별 실행 위치, MAIN/ISOLATED 실행 공간, 설정 이벤트, window.open 판정, 네트워크 규칙, MutationObserver, 레이어 숨김·복원, 선택 규칙 저장과 검증 범위를 설명합니다. 자료 재생성은 `python docs/build_guide.py`와 `python docs/render_guide.py`로 수행합니다 (fontTools, Python Playwright 및 시스템 Noto CJK 글꼴 필요).
