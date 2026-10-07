@@ -1,11 +1,12 @@
 {
   "manifest_version": 3,
   "name": "자동 새 창 차단",
-  "version": "1.1.0",
-  "description": "자동 팝업을 차단하고, 강력 차단 모드에서는 웹페이지가 여는 새 탭과 새 창을 닫습니다.",
+  "version": "1.2.0",
+  "description": "의도하지 않은 스크립트 팝업과 식별 가능한 광고 레이어를 차단합니다.",
   "permissions": [
     "contentSettings",
-    "storage"
+    "storage",
+    "declarativeNetRequest"
   ],
   "background": {
     "service_worker": "background.js"
@@ -13,5 +14,41 @@
   "action": {
     "default_title": "자동 새 창 차단",
     "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "page-guard.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ad_scripts",
+        "enabled": true,
+        "path": "ad-rules.json"
+      }
+    ]
   }
 }

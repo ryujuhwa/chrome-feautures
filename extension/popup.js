@@ -1,14 +1,14 @@
 const button = document.querySelector('#toggle');
-const strictControl = document.querySelector('#strict');
+const overlayControl = document.querySelector('#overlays');
 const status = document.querySelector('#status');
 let enabled = false;
 
 async function refresh() {
   const current = await chrome.contentSettings.popups.get({primaryUrl: 'https://example.com/'});
-  const settings = await chrome.storage.local.get(['enabled', 'strict']);
+  const settings = await chrome.storage.local.get(['enabled', 'overlays']);
   enabled = settings.enabled ?? true;
-  strictControl.checked = settings.strict ?? true;
-  strictControl.disabled = false;
+  overlayControl.checked = settings.overlays ?? true;
+  overlayControl.disabled = false;
   status.textContent = `확장 프로그램 차단: ${enabled ? '켜짐' : '꺼짐'} · 크롬 설정: ${current.setting === 'block' ? '차단' : '허용'}`;
   button.textContent = enabled ? '이 확장 프로그램의 차단 해제' : '자동 팝업 차단 켜기';
   button.disabled = false;
@@ -27,19 +27,20 @@ button.addEventListener('click', async () => {
     } else {
       await chrome.contentSettings.popups.set({primaryPattern: '<all_urls>', setting: 'block', scope: 'regular'});
     }
+    await chrome.declarativeNetRequest.updateEnabledRulesets(!enabled ? {enableRulesetIds: ['ad_scripts']} : {disableRulesetIds: ['ad_scripts']});
     await chrome.storage.local.set({enabled: !enabled});
     await refresh();
   } catch (error) {
     showError(error);
   }
 });
-strictControl.addEventListener('change', async () => {
-  strictControl.disabled = true;
+overlayControl.addEventListener('change', async () => {
+  overlayControl.disabled = true;
   try {
-    await chrome.storage.local.set({strict: strictControl.checked});
+    await chrome.storage.local.set({overlays: overlayControl.checked});
     await refresh();
   } catch (error) {
-    strictControl.disabled = false;
+    overlayControl.disabled = false;
     showError(error);
   }
 });

@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "requestDomains": [
+        "doubleclick.net",
+        "googlesyndication.com",
+        "popads.net",
+        "popcash.net",
+        "adsterra.com",
+        "exoclick.com",
+        "juicyads.com"
+      ],
+      "resourceTypes": [
+        "script",
+        "sub_frame"
+      ]
+    }
+  }
+]

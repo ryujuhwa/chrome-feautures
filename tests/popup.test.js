@@ -18,8 +18,8 @@ function setup(initial = true) {
     clear: async options => {calls.push(['clear', options]);}
   };
   vm.runInNewContext(source, {
-    document: {querySelector: selector => selector === '#status' ? status : selector === '#strict' ? strictControl : button},
-    chrome: {contentSettings: {popups: api}, storage: {local: {
+    document: {querySelector: selector => selector === '#status' ? status : selector === '#overlays' ? strictControl : button},
+    chrome: {declarativeNetRequest: {updateEnabledRulesets: async () => {}}, contentSettings: {popups: api}, storage: {local: {
       get: async () => ({enabled}), set: async state => {enabled = state.enabled;}
     }}}
   });
@@ -52,6 +52,7 @@ test('installation enables blocking and updates preserve opt-out', async () => {
     let callback, stored, sets = 0;
     vm.runInNewContext(background, {console, chrome: {
       tabs: {onCreated: {addListener: () => {}}},
+      declarativeNetRequest: {updateEnabledRulesets: async () => {}},
       runtime: {onInstalled: {addListener: fn => {callback = fn;}}},
       storage: {local: {get: async () => ({enabled: existing}), set: async state => {stored = state.enabled;}}},
       contentSettings: {popups: {set: async () => {sets++;}}}

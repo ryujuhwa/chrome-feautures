@@ -21,8 +21,6 @@ with TemporaryDirectory() as profile, sync_playwright() as p:
         page.goto(f"chrome-extension://{worker.url.split('/')[2]}/popup.html")
         page.wait_for_function("!document.querySelector('#toggle').disabled")
         assert '켜짐' in page.locator('#status').inner_text()
-        page.locator('#strict').uncheck()
-        page.wait_for_function("!document.querySelector('#strict').disabled")
         page.locator('#toggle').click()
         page.wait_for_function("document.querySelector('#status').textContent.includes('꺼짐')")
         page.locator('#toggle').click()
@@ -40,14 +38,6 @@ with TemporaryDirectory() as profile, sync_playwright() as p:
         opened = event.value
         opened.wait_for_load_state()
         assert opened.url.endswith('/clicked'), opened.url
-        page.locator('#strict').check()
-        page.wait_for_function("!document.querySelector('#strict').disabled")
-        with context.expect_page() as strict_event:
-            target.locator('button').click()
-        strict_popup = strict_event.value
-        if not strict_popup.is_closed():
-            strict_popup.wait_for_event('close')
-        assert strict_popup.is_closed()
         page.locator('#toggle').click()
         page.wait_for_function("document.querySelector('#status').textContent.includes('꺼짐')")
         assert worker.evaluate("async () => (await chrome.storage.local.get('enabled')).enabled") is False
