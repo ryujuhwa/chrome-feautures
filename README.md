@@ -8,7 +8,7 @@
 2. 다운로드 폴더에서 ZIP을 우클릭 → **모두 추출**로 새 폴더에 압축을 풉니다.
 3. 크롬에서 `chrome://extensions`를 엽니다. 기존 버전을 설치했다면 제거합니다.
 4. **개발자 모드 → 압축해제된 확장 프로그램 로드**에서 추출된 `chrome-popup-blocker/extension` 폴더를 선택합니다. `manifest.json`이 들어 있는 폴더여야 합니다.
-5. 확장 프로그램 화면에서 **1.2.0**을 확인하고, 열어 둔 웹사이트를 새로고침합니다. 크롬 재시작은 필요 없습니다.
+5. 확장 프로그램 화면에서 **1.3.0**을 확인하고, 열어 둔 웹사이트를 새로고침합니다. 크롬 재시작은 필요 없습니다.
 
 웹사이트에서 실행할 권한을 허용해야 합니다. 업데이트에서 사이트 접근 및 광고 요청 차단 권한이 추가되었습니다. 시크릿 모드는 기본으로 동작하지 않습니다.
 
@@ -58,3 +58,12 @@ python tests/browser_behavior.py
 선택 기능은 일반 페이지 요소를 마음대로 삭제하지 않고, 화면 위에 배치된 fixed/absolute 덮개를 대상으로 합니다. 선택 중에는 투명 선택 화면이 클릭을 받아 광고 안의 iframe도 선택할 수 있습니다. 사이트별 규칙은 로컬 크롬 프로필에만 저장됩니다. 제거 후 재설치하면 이 규칙도 사라집니다.
 
 추가 검증: `python tests/layers_behavior.py`는 광고 SDK 덮개, 작은 모서리 광고, 직접 선택 및 반복 생성, 규칙 초기화, 정상 콘텐츠 보존을 실제 Chromium의 로컬 테스트 페이지에서 확인합니다. 네트워크 차단 규칙 자체는 이 테스트의 검증 범위가 아닙니다.
+
+## 그림으로 읽는 동작 설명서
+
+개발 지식이 없는 사용자를 위한 12쪽 그림 자료입니다. 광고 요청 차단, 정상 새 창 허용, 광고 덮개 숨기기, 직접 선택, 설정과 한계를 설명합니다.
+
+- [PDF 다운로드](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.pdf)
+- [PDF + 오프라인 HTML 자료 ZIP 다운로드](https://github.com/ryujuhwa/chrome-feautures/raw/refs/heads/main/downloads/popup-blocker-guide.zip)
+
+ZIP을 모두 추출한 후 `popup-blocker-guide.html`을 더블클릭하면 인터넷 없이도 읽을 수 있습니다. PDF는 A4 가로로 인쇄할 수 있습니다.
